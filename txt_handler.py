@@ -24,11 +24,11 @@ class DataGenerator:
             data = txt_file.read()
         return data
 
-    def batch_generator(self, batch_size, sequence_length, nb_epochs):
+    def batch_generator(self, batch_size, sequence_length):
 
         data_len = self._encoded_data.shape[0]
         # num batches that fit in the data-set
-        nb_batches = np.floor(data_len / (batch_size * sequence_length))
+        nb_batches = data_len // (batch_size * sequence_length)
         usage_data_len = nb_batches * batch_size * sequence_length
         xdata = np.reshape(self._encoded_data[0:usage_data_len], [batch_size, nb_batches * sequence_length])
         ydata = np.reshape(self._encoded_data[1:usage_data_len + 1], [batch_size, nb_batches * sequence_length])
